@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { act } from "react";
 
 export const STATUSES = Object.freeze({
   IDLE: "idle",
@@ -10,7 +9,7 @@ export const STATUSES = Object.freeze({
 const productSlice = createSlice({
   name: "products",
   initialState: {
-    data: [],
+    data: [],                 //initially no products, need to fetch, after fetching products, put them here
     status: STATUSES.IDLE, //default state is idle
   },
   reducers: {
@@ -36,11 +35,12 @@ const productSlice = createSlice({
       });
   },
 });
-
-export const { setProducts, setStatus } = productSlice.actions;
+// export const { setProducts, setStatus } = productSlice.actions;
 export default productSlice.reducer;
 
-//thunk 
+
+//thunks
+
 //METHOD 1
 // export function fetchProducts(){
 //     return async function fetchProductsThunk(dispatch, getState){
@@ -56,13 +56,13 @@ export default productSlice.reducer;
 //         }
 //     }
 // }
-//----------------------------------------------------------
 
 //METHOD 2
-export const fetchProducts = createAsyncThunk("products/fetch", async () => {
+export const fetchProducts = createAsyncThunk("products/fetch", async () => {           //fetching here
   const res = await fetch("https://fakestoreapi.com/products");
-  const data = await res.json();
+  const data = await res.json();      
   return data;
 });
 //createAsyncThunk returns a promise.
 //Promise has 3 states - fulfilled, rejected and pending
+//add extra reducers to handle these three states returned by the promise

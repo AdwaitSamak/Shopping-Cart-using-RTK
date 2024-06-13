@@ -6,7 +6,7 @@ import { fetchProducts, STATUSES } from '../store/productSlice';
 function Products() {
     const dispatch = useDispatch();
 
-    const {data,status} = useSelector(state=>state.products)   //api call done in store, product list fetched from store using useselector   --> will give current data and status
+    const {data,status} = useSelector(state=>state.products)   //api call done in store, product list fetched from store using useselector   --> will give current data and status  -- products is teh name given to the productSlice, its state has data and status
 
     // useEffect(()=>{
     //     const fetchproducts = async ()=>{
@@ -23,7 +23,7 @@ function Products() {
     },[])
 
     const handleAdd = (product)=>{
-        dispatch(add(product))     //dispacth action to add product int cart
+        dispatch(add(product))     //dispacth action to add product int cart,  it is from cartSlice. it will be added to state of the cart
     }
 
     if(status===STATUSES.LOADING){      //the freezed object having the three possible statuses
